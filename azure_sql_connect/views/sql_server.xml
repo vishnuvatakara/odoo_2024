@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sql_server_view_form" model="ir.ui.view">
+        <field name="name">sql.serve.form.view</field>
+        <field name="model">sql.server</field>
+        <field name="arch" type="xml">
+            <form string="SQL Servers">
+                <header>
+                    <button string="Test Connection" type="object" name="test_sql_connection" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page name="connection" string="Connection">
+                            <group>
+                                <group>
+                                    <field name="server"/>
+                                    <field name="database"/>
+                                    <field name="sql_user"/>
+                                    <field name="sql_user_password" password="True"/>
+                                </group>
+                                <group>
+
+                                </group>
+                            </group>
+                        </page>
+                        <page name="query" string="Execute Query">
+                            <group>
+                                <group>
+                                    <field name="query"/>
+                                </group>
+                                <group>
+                                    <button string="RUN" type="object" name="run_query" class="btn-primary"/>
+
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sql_server_view_tree" model="ir.ui.view">
+        <field name="name">sql.serve.tree.view</field>
+        <field name="model">sql.server</field>
+        <field name="arch" type="xml">
+            <tree string="SQL Servers" create="1" delete="1" edit="0">
+                <field name="name"/>
+                <field name="server"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sql_server_view_search" model="ir.ui.view">
+        <field name="name">sql.serve.search.view</field>
+        <field name="model">sql.server</field>
+        <field name="arch" type="xml">
+            <search string="SQL Servers">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_sql_server" model="ir.actions.act_window">
+        <field name="name">SQL Servers</field>
+        <field name="domain"></field>
+        <field name="res_model">sql.server</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="sql_server_view_search"/>
+
+        <field name="help" type="html">
+            <p>
+                SQL Server
+            </p>
+        </field>
+    </record>
+    <menuitem
+            id="menu_sql_server_root"
+            name="SQL"
+            sequence="51"
+            action="action_sql_server"/>
+    <menuitem
+            id="menu_sql_server_main"
+            name="SQL"
+            parent="azure_sql_connect.menu_sql_server_root"
+            action="action_sql_server"/>
+
+</odoo>
